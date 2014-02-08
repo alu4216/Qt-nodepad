@@ -16,3 +16,6 @@ SOURCES += main.cpp\
         notepadwindows.cpp
 
 HEADERS  += notepadwindows.h
+
+RESOURCES += \
+    recursos.qrc

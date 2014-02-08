@@ -57,8 +57,11 @@ NotepadWindows::NotepadWindows(QWidget *parent)
     actAcercaDe_=new QAction(tr("&Acerca de"),this);
     mnuAyuda_->addAction(actAcercaDe_);
 
+    toolbar_=new QToolBar();
+    addToolBar(toolbar_);
 
     setMenuBar(mainMenu_);
+
 
     //conectar las acciones de los menus con nuestros slots
     connect(actArchivoAbrir_, SIGNAL(triggered()),this, SLOT(alAbrir()));
@@ -72,6 +75,16 @@ NotepadWindows::NotepadWindows(QWidget *parent)
     connect(actDeshacer_, SIGNAL(triggered()), txtEditor_, SLOT(undo()));
     connect(actAcercaDe_,SIGNAL(triggered()),this,SLOT(alAcercade()));
 
+
+    //para el toolbar añadimos las señales tambien
+
+    toolbar_->addAction(actEditarCopiar_);
+    toolbar_->addAction(actAcercaDe_);
+    toolbar_->addAction(actArchivoAbrir_);
+    toolbar_->addAction(actCortar_);
+    toolbar_->addAction(actEditarPegar_);
+    toolbar_->addAction(actFormatoFuente_);
+    toolbar_->addAction(actAcercaDe_);
 
 
 
