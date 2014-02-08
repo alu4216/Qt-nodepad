@@ -10,7 +10,7 @@ NotepadWindows::NotepadWindows(QWidget *parent)
     //Inicializamos los menús
     mainMenu_= new QMenuBar(this);
     mnuArchivo_= new QMenu(tr("&Archivo"),this);// tr para traducir cualquier cadena por otra. tr permite cambiar Archivo a file
-    mainMenu_->addMenu(mnuArchivo_);
+    mainMenu_->addMenu(mnuArchivo_);//añadimos la pestaña archivo
 
 
     actArchivoAbrir_ = new QAction(tr("&Abrir"),this);
@@ -26,7 +26,7 @@ NotepadWindows::NotepadWindows(QWidget *parent)
     mnuArchivo_->addAction(actCerrar_);
 
     mnuEditar_ = new QMenu(tr("&Editar"));
-    mainMenu_->addMenu(mnuEditar_);
+    mainMenu_->addMenu(mnuEditar_);//añadimos la pestaña editar
 
     actEditarCopiar_ = new QAction(tr("&Copiar"), this);
     actEditarCopiar_->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_C));
@@ -36,11 +36,27 @@ NotepadWindows::NotepadWindows(QWidget *parent)
     actEditarPegar_->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_V));
     mnuEditar_->addAction(actEditarPegar_);
 
-    mnuFormato_ = new QMenu(tr("&Formato"));
+    mnuFormato_ = new QMenu(tr("&Formato"));//añadimos menu formato
     mainMenu_->addMenu(mnuFormato_);
 
     actFormatoFuente_ = new QAction(tr("&Fuente"), this);
     mnuFormato_->addAction(actFormatoFuente_);
+
+    actCortar_=new QAction(tr("&Cortar"),this);
+    mnuEditar_->addAction(actCortar_);
+
+    actRehacer_=new QAction(tr("&Rehacer"),this);
+    mnuEditar_->addAction(actRehacer_);
+
+    actDeshacer_=new QAction(tr("&Deshacer"),this);
+    mnuEditar_->addAction(actDeshacer_);
+
+    mnuAyuda_=new QMenu(tr("&Ayuda"));//añadimos menu ayuda
+    mainMenu_->addMenu(mnuAyuda_);
+
+    actAcercaDe_=new QAction(tr("&Acerca de"),this);
+    mnuAyuda_->addAction(actAcercaDe_);
+
 
     setMenuBar(mainMenu_);
 
@@ -51,6 +67,12 @@ NotepadWindows::NotepadWindows(QWidget *parent)
     connect(actEditarCopiar_, SIGNAL(triggered()), txtEditor_, SLOT(copy()));
     connect(actEditarPegar_, SIGNAL(triggered()), txtEditor_, SLOT(paste()));
     connect(actFormatoFuente_, SIGNAL(triggered()), this, SLOT(alFuente()));
+    connect(actCortar_,SIGNAL(triggered()),txtEditor_,SLOT(cut()));
+    connect(actRehacer_, SIGNAL(triggered()), txtEditor_, SLOT(redo()));
+    connect(actDeshacer_, SIGNAL(triggered()), txtEditor_, SLOT(undo()));
+    connect(actAcercaDe_,SIGNAL(triggered()),this,SLOT(alAcercade()));
+
+
 
 
 
@@ -112,4 +134,16 @@ void NotepadWindows::alFuente()
         txtEditor_->setFont(font);
     }
 }
+
+void NotepadWindows::alAcercade()
+{
+    QMessageBox msgBox;
+    msgBox.setText("Curso de QT. Nodepad");
+    msgBox.exec();
+
+
+}
+
+
+
 
